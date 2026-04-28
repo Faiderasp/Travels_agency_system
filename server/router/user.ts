@@ -4,6 +4,7 @@ import { Router } from 'express';
 import {
     registerUser,
     loginUser,
+    selectUsers,
     createUser,
     deleteUser,
     updateUser,
@@ -17,6 +18,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 
 // Protected routes configuration
+router.get('/', auth, selectUsers);
 router.post('/create', auth, createUser);
 router.put('/:id', auth, updateUser);
 router.delete('/:id', auth, deleteUser);

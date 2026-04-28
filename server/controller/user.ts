@@ -77,6 +77,29 @@ export const loginUser = async (
     }
 };
 
+export const selectUsers = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    try {
+        const users = await userModel.selectAllUsers();
+
+        return res
+            .status(200)
+            .json({
+                success: true,
+                message: 'Users successfully fetched.',
+                data: users,
+            });
+    } catch (error: any) {
+        return res.status(500).json({
+            success: false,
+            message:
+                error.message || 'An error has occured while fetching users.',
+        });
+    }
+};
+
 export const createUser = async (
     req: Request,
     res: Response

@@ -77,6 +77,10 @@ export const userModel = {
         });
     },
 
+    selectAllUsers: async (): Promise<User[] | void> => {
+        return await User.findAll();
+    },
+
     selectUserByUsername: async (username: string): Promise<User | null> => {
         return await User.findOne({
             where: {

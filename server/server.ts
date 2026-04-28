@@ -4,6 +4,7 @@ import cors from 'cors';
 
 // Router imports
 import userRouter from './router/user.js';
+import travellerRouter from './router/traveller.js';
 
 // Types import
 import type { Application, Request, Response } from 'express';
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes configuration
 app.use('/api/user/', userRouter);
+app.use('/api/traveller/', travellerRouter);
 
 // Health check
 app.get('/api/health', (req: Request, res: Response) => {
