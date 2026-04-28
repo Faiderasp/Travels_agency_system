@@ -4,10 +4,13 @@ import dotenv from 'dotenv';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+// Router imports
+import userRouter from './router/user';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-dotenv.config({ path: path.join(__dirname, '..', '.env')});
+dotenv.config({ path: path.join(__dirname, '..', '.env'), quiet: true });
 
 // Types import
 import type { Application, Request, Response } from 'express';
@@ -23,6 +26,9 @@ const PORT = 3001;
 app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Routes configuration
+app.use('/api/user/', userRouter);
 
 // Health check
 app.get('/api/health', (req: Request, res: Response) => {
