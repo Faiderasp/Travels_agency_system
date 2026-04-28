@@ -30,13 +30,10 @@ export const registerUser = async (
             .status(201)
             .json({ success: true, message: 'User successfully created.' });
     } catch (error: any) {
-        return res
-            .status(500)
-            .json({
-                success: false,
-                message:
-                    error.message || 'An error has occured while registering.',
-            });
+        return res.status(500).json({
+            success: false,
+            message: error.message || 'An error has occured while registering.',
+        });
     }
 };
 
@@ -52,12 +49,10 @@ export const loginUser = async (
                 .json({ success: false, message: 'Data missing.' });
         const user = await userModel.selectUserByUsername(username);
         if (!user)
-            return res
-                .status(401)
-                .json({
-                    success: false,
-                    message: 'That username is not registered.',
-                });
+            return res.status(401).json({
+                success: false,
+                message: 'That username is not registered.',
+            });
 
         const valid: boolean = await bcrypt.compare(password, user.password);
         if (!valid)
@@ -66,22 +61,94 @@ export const loginUser = async (
                 .json({ success: false, message: 'Incorrect password.' });
 
         const token = generateToken(user);
+        return res.status(200).json({
+            success: true,
+            msg: 'Logged successfully.',
+            token,
+            id: user.user_id,
+            username: user.username,
+            image: user.image,
+        });
+    } catch (error: any) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || 'An error has occured while login.',
+        });
+    }
+};
+
+export const createUser = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    try {
+        const { username, password, image, role } = req.body;
+        if (!username.trim() || !password.trim())
+            return res
+                .status(400)
+                .json({ success: false, message: 'Data missing.' });
+        if (await userModel.selectUserByUsername(username.trim()))
+            return res
+                .status(400)
+                .json({ success: false, message: 'Username already exists.' });
+
+        const hashedPassword: string = await bcrypt.hash(password, SALT_ROUNDS);
+
+        await userModel.insertUser(username, hashedPassword, image, role);
+        return res
+            .status(201)
+            .json({ success: true, message: 'User successfully created.' });
+    } catch (error: any) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || 'An error has occured while registering.',
+        });
+    }
+};
+
+export const updateUser = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    try {
+        const { id } = req.params;
+        const { username, password, image, role } = req.body;
+
+        const updateData: any = {};
+        if (username) updateData.username = username;
+        if (image) updateData.image = image;
+        if (role) updateData.role = role;
+        if (password) {
+            updateData.password = await bcrypt.hash(password, SALT_ROUNDS);
+        }
+
+        await userModel.updateUserById(Number(id), updateData);
+
         return res
             .status(200)
-            .json({
-                success: true,
-                msg: 'Logged successfully.',
-                token,
-                id: user.user_id,
-                username: user.username,
-                image: user.image,
-            });
+            .json({ success: true, message: 'User updated successfully.' });
     } catch (error: any) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || 'An error occurred while updating.',
+        });
+    }
+};
+
+export const deleteUser = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    try {
+        const { id } = req.params;
+        await userModel.deleteUserById(Number(id));
         return res
-            .status(500)
-            .json({
-                success: false,
-                message: error.message || 'An error has occured while login.',
-            });
+            .status(200)
+            .json({ success: true, message: 'User deleted successfully.' });
+    } catch (error: any) {
+        return res.status(500).json({
+            success: false,
+            message: error.message || 'An error occurred while deleting.',
+        });
     }
 };

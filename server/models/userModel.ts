@@ -64,8 +64,8 @@ export const userModel = {
     insertUser: async (
         username: string,
         password: string,
-        image: string | null,
-        role: 'admin' | 'user' | 'mod'
+        role: 'admin' | 'user' | 'mod',
+        image?: string
     ): Promise<void> => {
         await User.create({
             username: username,
@@ -81,6 +81,22 @@ export const userModel = {
         return await User.findOne({
             where: {
                 username: username,
+            },
+        });
+    },
+
+    updateUserById: async (user_id: number, data: any): Promise<void> => {
+        await User.update(data, {
+            where: {
+                user_id: user_id,
+            },
+        });
+    },
+
+    deleteUserById: async (user_id: number): Promise<void> => {
+        await User.destroy({
+            where: {
+                user_id: user_id,
             },
         });
     },

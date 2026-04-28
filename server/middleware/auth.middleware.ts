@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 // User data payload
-export interface UserPayload {
+interface UserPayload {
     user_id: string;
     username: string;
 }
@@ -12,7 +12,7 @@ interface AuthenticatedRequest extends Request {
     user?: UserPayload;
 }
 
-export const authMiddleware = (
+export const auth = (
     req: AuthenticatedRequest,
     res: Response,
     next: NextFunction
