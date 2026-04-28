@@ -1,35 +1,47 @@
-CREATE TABLE user(
-    user_id SERIAL PRIMARY KEY,
-    username VARCHAR(50) NOT NULL,
+CREATE TABLE user (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    image VARCHAR(255) NOT NULL,
-    role ENUM('admin', 'user', 'mod') DEFAULT 'user' NOT NULL,
+    image VARCHAR(255),
+    role ENUM('admin', 'user', 'mod') NOT NULL DEFAULT 'user',
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE traveller(
-    traveller_id SERIAL PRIMARY KEY,
-    dni VARCHAR(50) NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    phone VARCHAR(50) NOT NULL,
+CREATE TABLE traveller (
+    traveller_id INT AUTO_INCREMENT PRIMARY KEY,
+    dni VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    address VARCHAR(255),
+    phone VARCHAR(50),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE travel(
-    travel_id SERIAL PRIMARY KEY,
-    travel_code VARCHAR(50) NOT NULL,
-    name VARCHAR(50) NOT NULL,
-    seat_quantity INTEGER NOT NULL,
-    date TIMESTAMP NOT NULL,
-    origin VARCHAR(50) NOT NULL,
-    destiny VARCHAR(50) NOT NULL,
+CREATE TABLE travel (
+    travel_id INT AUTO_INCREMENT PRIMARY KEY,
+    travel_code VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    seat_quantity INT NOT NULL,
+    date DATETIME NOT NULL,
+    origin VARCHAR(100) NOT NULL,
+    destiny VARCHAR(100) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE travels(
-    travels_id SERIAL PRIMARY KEY,
-    traveller_id INTEGER REFERENCES traveller(traveller_id) NOT NULL,
-    travel_id INTEGER REFERENCES travel(travel_id) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP NOT NULL
+CREATE TABLE travels (
+    travels_id INT AUTO_INCREMENT PRIMARY KEY,
+    traveller_id INT NOT NULL,
+    travel_id INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    UNIQUE (traveller_id, travel_id),
+
+    FOREIGN KEY (traveller_id)
+        REFERENCES traveller(traveller_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    FOREIGN KEY (travel_id)
+        REFERENCES travel(travel_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
