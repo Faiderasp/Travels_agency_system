@@ -1,34 +1,41 @@
 {
-  "name": "travel-agency-server",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "Yenterick <yenterick@gmail.com>",
-  "type": "module",
-  "main": "server.ts",
-  "scripts": {
-    "dev": "tsx --watch server.ts",
-    "start": "node dist/server.js",
-    "build": "tsc",
-    "type-check": "tsc --noEmit"
-  },
-  "devDependencies": {
-    "@types/bcrypt": "^6.0.0",
-    "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/node": "^25.6.0",
-    "nodemon": "^3.1.14",
-    "tsx": "^4.21.0"
-  },
-  "dependencies": {
-    "@types/sequelize": "^4.28.20",
-    "bcrypt": "^6.0.0",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "jsonwebtoken": "^9.0.3",
-    "sequelize": "^6.37.8",
-    "typescript": "^6.0.3"
-  }
+    "name": "travel-agency-server",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "Yenterick <yenterick@gmail.com>",
+    "type": "module",
+    "main": "server.ts",
+    "scripts": {
+        "dev": "tsx --watch server.ts",
+        "start": "node dist/server.js",
+        "build": "tsc",
+        "type-check": "tsc --noEmit",
+        "lint": "eslint",
+        "format": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md,json}\""
+    },
+    "devDependencies": {
+        "@eslint/js": "^10.0.1",
+        "@types/bcrypt": "^6.0.0",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "@types/jsonwebtoken": "^9.0.10",
+        "@types/node": "^25.6.0",
+        "eslint": "^10.2.1",
+        "eslint-config-prettier": "^10.1.8",
+        "nodemon": "^3.1.14",
+        "prettier": "^3.8.3",
+        "tsx": "^4.21.0",
+        "typescript-eslint": "^8.59.1"
+    },
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "jsonwebtoken": "^9.0.3",
+        "mysql2": "^3.22.3",
+        "sequelize": "^6.37.8",
+        "typescript": "^6.0.3"
+    }
 }

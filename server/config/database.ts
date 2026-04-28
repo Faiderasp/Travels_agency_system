@@ -3,25 +3,34 @@ import { Sequelize } from 'sequelize';
 // Modules import
 import { log, sleep } from '../utils/utils';
 
-// Preparing the connection URLs for the database
-const pgUri = `postgres://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB}`;
+// Creating the MySQL sequelize object
+export const sequelize = new Sequelize(
+    process.env.MYSQL_DATABASE || '',
+    process.env.MYSQL_USER || '',
+    process.env.MYSQL_PASSWORD || '',
+    {
+        host: process.env.MYSQL_HOST || 'localhost',
+        port: Number(process.env.DB_PORT) || 3306,
+        dialect: 'mysql',
+        logging: false,
+    }
+);
 
-// Creating the Postgres sequelize object
-export const pgSequelize = new Sequelize(pgUri, { logging: false });
-
-// Function to connect to Postgres
-export const pgConnection = async (): Promise<void> => {
-    log('Connecting to Postgres...');
+// Function to connect to MySQL
+export const dbConnection = async (): Promise<void> => {
+    log('Connecting to MySQL...');
     let connected = false;
     while (!connected) {
         try {
-            await pgSequelize.authenticate();
-            log('Postgres successfully connected.');
+            await sequelize.authenticate();
+            log('MySQL successfully connected.');
             connected = true;
         } catch (error) {
             // Loops till the database is successfully connected
-            log(`Postgres got an error while trying to connect: ${error} - Retrying in 5 seconds...`);
+            log(
+                `MySQL got an error while trying to connect: ${error} - Retrying in 5 seconds...`
+            );
             await sleep(5000);
         }
     }
-}
+};

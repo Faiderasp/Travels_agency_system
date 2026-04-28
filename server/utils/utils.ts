@@ -3,14 +3,14 @@ export const getLogPrefix = () => {
     const now = new Date();
     const timeStamp = now.toLocaleString();
     return `[travels-agency-server@1.0.0 | ${timeStamp}] - `;
-}
+};
 
 // Logs info in the terminal
 export const log = (message: string) => {
     console.log(`${getLogPrefix()}${message}`);
-}
+};
 
 // Simulates time.sleep() from Python
 export const sleep = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
 };
