@@ -1,6 +1,6 @@
 // Module imports
-import { User, userModel } from '../models/userModel';
-import { generateToken } from '../config/jwt';
+import { User, userModel } from '../models/userModel.js';
+import { generateToken } from '../config/jwt.js';
 import bcrypt from 'bcrypt';
 
 // Type imports
@@ -35,7 +35,7 @@ export const registerUser = async (
             .json({
                 success: false,
                 message:
-                    error.message || 'An error has occured while registering',
+                    error.message || 'An error has occured while registering.',
             });
     }
 };
@@ -81,7 +81,7 @@ export const loginUser = async (
             .status(500)
             .json({
                 success: false,
-                message: error.message || 'An error has occured while login',
+                message: error.message || 'An error has occured while login.',
             });
     }
 };

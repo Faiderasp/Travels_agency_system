@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 
 // Modules import
-import { log, sleep } from '../utils/utils';
+import { log, sleep } from '../utils/utils.js';
 
 // Creating the MySQL sequelize object
 export const sequelize = new Sequelize(

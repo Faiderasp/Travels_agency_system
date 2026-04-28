@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 // Module imports
-import { registerUser, loginUser } from '../controller/user';
+import { registerUser, loginUser } from '../controller/user.js';
 // import { auth } from '../middleware/auth.middleware';
 
 const router: Router = Router();

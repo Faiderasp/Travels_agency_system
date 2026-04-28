@@ -7,7 +7,7 @@ import {
 } from 'sequelize';
 
 // Module imports
-import { sequelize } from '../config/database';
+import { sequelize } from '../config/database.js';
 
 // Defines the user model
 export class User extends Model<
