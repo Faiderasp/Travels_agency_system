@@ -1,5 +1,5 @@
 // Module imports
-import { User, userModel } from '../models/userModel.js';
+import { userModel } from '../models/userModel.js';
 import { generateToken } from '../config/jwt.js';
 import bcrypt from 'bcrypt';
 
@@ -84,13 +84,11 @@ export const selectUsers = async (
     try {
         const users = await userModel.selectAllUsers();
 
-        return res
-            .status(200)
-            .json({
-                success: true,
-                message: 'Users successfully fetched.',
-                data: users,
-            });
+        return res.status(200).json({
+            success: true,
+            message: 'Users successfully fetched.',
+            data: users,
+        });
     } catch (error: any) {
         return res.status(500).json({
             success: false,

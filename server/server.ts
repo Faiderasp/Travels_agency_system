@@ -5,6 +5,7 @@ import cors from 'cors';
 // Router imports
 import userRouter from './router/user.js';
 import travellerRouter from './router/traveller.js';
+import travelRouter from './router/travel.js';
 
 // Types import
 import type { Application, Request, Response } from 'express';
@@ -13,7 +14,7 @@ import type { Application, Request, Response } from 'express';
 import { log } from './utils/utils.js';
 import { dbConnection } from './config/database.js';
 
-let app: Application = express();
+const app: Application = express();
 
 // App configuration
 const PORT = 3001;
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // Routes configuration
 app.use('/api/user/', userRouter);
 app.use('/api/traveller/', travellerRouter);
+app.use('/api/travel/', travelRouter);
 
 // Health check
 app.get('/api/health', (req: Request, res: Response) => {

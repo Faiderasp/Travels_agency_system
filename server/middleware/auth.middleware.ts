@@ -31,7 +31,7 @@ export const auth = (
         ) as UserPayload;
         req.user = decoded;
         next();
-    } catch (error) {
+    } catch {
         return res.status(403).json({ message: 'Invalid or expired token.' });
     }
 };

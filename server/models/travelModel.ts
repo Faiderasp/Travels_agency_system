@@ -46,7 +46,7 @@ Travel.init(
         },
         date: {
             type: DataTypes.DATE,
-            allowNull: false
+            allowNull: false,
         },
         origin: {
             type: DataTypes.STRING(50),
@@ -54,16 +54,70 @@ Travel.init(
         },
         destiny: {
             type: DataTypes.STRING(50),
-            allowNull: false
+            allowNull: false,
         },
         created_at: {
             type: DataTypes.DATE,
-            allowNull: false
-        }
+            allowNull: false,
+            defaultValue: DataTypes.NOW,
+        },
     },
     {
         sequelize,
         tableName: 'travel',
         timestamps: false,
     }
-)
+);
+
+// Travel model with all the required functions
+export const travelModel = {
+    insertTravel: async (
+        travel_code: string,
+        name: string,
+        seat_quantity: number,
+        date: Date,
+        origin: string,
+        destiny: string
+    ): Promise<void> => {
+        await Travel.create({
+            travel_code,
+            name,
+            seat_quantity,
+            date,
+            origin,
+            destiny,
+        });
+    },
+
+    selectAllTravels: async (): Promise<Travel[]> => {
+        return await Travel.findAll();
+    },
+
+    selectTravelByCode: async (travel_code: string): Promise<Travel | null> => {
+        return await Travel.findOne({
+            where: {
+                travel_code,
+            },
+        });
+    },
+
+    selectTravelById: async (travel_id: number): Promise<Travel | null> => {
+        return await Travel.findByPk(travel_id);
+    },
+
+    updateTravelById: async (travel_id: number, data: any): Promise<void> => {
+        await Travel.update(data, {
+            where: {
+                travel_id,
+            },
+        });
+    },
+
+    deleteTravelById: async (travel_id: number): Promise<void> => {
+        await Travel.destroy({
+            where: {
+                travel_id,
+            },
+        });
+    },
+};

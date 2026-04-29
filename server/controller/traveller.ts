@@ -1,5 +1,5 @@
 // Module imports
-import { Traveller, travellerModel } from '../models/travellerModel.js';
+import { travellerModel } from '../models/travellerModel.js';
 
 // Type imports
 import type { Request, Response } from 'express';
@@ -18,20 +18,16 @@ export const createTraveller = async (
         const existingTraveller =
             await travellerModel.selectTravellerByDni(dni);
         if (existingTraveller)
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: 'Traveller with this DNI already exists.',
-                });
+            return res.status(400).json({
+                success: false,
+                message: 'Traveller with this DNI already exists.',
+            });
 
         await travellerModel.insertTraveller(dni, name, address, phone);
-        return res
-            .status(201)
-            .json({
-                success: true,
-                message: 'Traveller successfully created.',
-            });
+        return res.status(201).json({
+            success: true,
+            message: 'Traveller successfully created.',
+        });
     } catch (error: any) {
         return res.status(500).json({
             success: false,
@@ -96,12 +92,10 @@ export const updateTraveller = async (
 
         await travellerModel.updateTravellerById(Number(id), updateData);
 
-        return res
-            .status(200)
-            .json({
-                success: true,
-                message: 'Traveller updated successfully.',
-            });
+        return res.status(200).json({
+            success: true,
+            message: 'Traveller updated successfully.',
+        });
     } catch (error: any) {
         return res.status(500).json({
             success: false,
@@ -118,12 +112,10 @@ export const deleteTraveller = async (
     try {
         const { id } = req.params;
         await travellerModel.deleteTravellerById(Number(id));
-        return res
-            .status(200)
-            .json({
-                success: true,
-                message: 'Traveller deleted successfully.',
-            });
+        return res.status(200).json({
+            success: true,
+            message: 'Traveller deleted successfully.',
+        });
     } catch (error: any) {
         return res.status(500).json({
             success: false,
