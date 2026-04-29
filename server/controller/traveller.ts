@@ -44,7 +44,7 @@ export const getTravellers = async (
 ): Promise<Response> => {
     try {
         const travellers = await travellerModel.selectAllTravellers();
-        return res.status(200).json({ success: true, travellers });
+        return res.status(200).json({ success: true, data: travellers });
     } catch (error: any) {
         return res.status(500).json({
             success: false,
@@ -66,7 +66,7 @@ export const getTravellerById = async (
                 .status(404)
                 .json({ success: false, message: 'Traveller not found.' });
 
-        return res.status(200).json({ success: true, traveller });
+        return res.status(200).json({ success: true, data: traveller });
     } catch (error: any) {
         return res.status(500).json({
             success: false,
@@ -121,6 +121,33 @@ export const deleteTraveller = async (
             success: false,
             message:
                 error.message || 'An error occurred while deleting traveller.',
+        });
+    }
+};
+
+export const getTravellerTravels = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
+    try {
+        const { id } = req.params;
+        const traveller = await travellerModel.selectTravellerWithTravels(
+            Number(id)
+        );
+
+        if (!traveller) {
+            return res
+                .status(404)
+                .json({ success: false, message: 'Traveller not found.' });
+        }
+
+        return res.status(200).json({ success: true, data: traveller });
+    } catch (error: any) {
+        return res.status(500).json({
+            success: false,
+            message:
+                error.message ||
+                'An error occurred while fetching traveller travels.',
         });
     }
 };

@@ -33,8 +33,6 @@ CREATE TABLE travels (
     travel_id INT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-    UNIQUE (traveller_id, travel_id),
-
     FOREIGN KEY (traveller_id)
         REFERENCES traveller(traveller_id)
         ON DELETE CASCADE

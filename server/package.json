@@ -1,7 +1,7 @@
 {
     "name": "travel-agency-server",
     "version": "1.0.0",
-    "description": "",
+    "description": "Travel Agency System - Server",
     "license": "ISC",
     "author": "Yenterick <yenterick@gmail.com>",
     "type": "module",

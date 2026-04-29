@@ -63,11 +63,13 @@ export const loginUser = async (
         const token = generateToken(user);
         return res.status(200).json({
             success: true,
-            msg: 'Logged successfully.',
-            token,
-            id: user.user_id,
-            username: user.username,
-            image: user.image,
+            message: 'Logged successfully.',
+            data: {
+                token,
+                id: user.user_id,
+                username: user.username,
+                image: user.image,
+            },
         });
     } catch (error: any) {
         return res.status(500).json({

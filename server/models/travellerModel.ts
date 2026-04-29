@@ -8,6 +8,7 @@ import {
 
 // Module imports
 import { sequelize } from '../config/database.js';
+import { Travel } from './travelModel.js';
 
 // Defines the traveller model
 export class Traveller extends Model<
@@ -109,6 +110,19 @@ export const travellerModel = {
             where: {
                 traveller_id: traveller_id,
             },
+        });
+    },
+
+    selectTravellerWithTravels: async (
+        traveller_id: number
+    ): Promise<Traveller | null> => {
+        return await Traveller.findByPk(traveller_id, {
+            include: [
+                {
+                    model: Travel,
+                    through: { attributes: [] },
+                },
+            ],
         });
     },
 };

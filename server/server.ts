@@ -6,6 +6,7 @@ import cors from 'cors';
 import userRouter from './router/user.js';
 import travellerRouter from './router/traveller.js';
 import travelRouter from './router/travel.js';
+import travelsRouter from './router/travels.js';
 
 // Types import
 import type { Application, Request, Response } from 'express';
@@ -13,6 +14,9 @@ import type { Application, Request, Response } from 'express';
 // Module improts
 import { log } from './utils/utils.js';
 import { dbConnection } from './config/database.js';
+
+// Setup database associations
+import './models/associations.js';
 
 const app: Application = express();
 
@@ -26,6 +30,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/user/', userRouter);
 app.use('/api/traveller/', travellerRouter);
 app.use('/api/travel/', travelRouter);
+app.use('/api/travels/', travelsRouter);
 
 // Health check
 app.get('/api/health', (req: Request, res: Response) => {

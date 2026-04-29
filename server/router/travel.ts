@@ -7,6 +7,7 @@ import {
     getTravelById,
     updateTravel,
     deleteTravel,
+    getTravelTravellers,
 } from '../controller/travel.js';
 import { auth } from '../middleware/auth.middleware.js';
 
@@ -18,5 +19,6 @@ router.get('/', auth, getTravels);
 router.get('/:id', auth, getTravelById);
 router.put('/:id', auth, updateTravel);
 router.delete('/:id', auth, deleteTravel);
+router.get('/:id/travellers', auth, getTravelTravellers);
 
 export default router;
