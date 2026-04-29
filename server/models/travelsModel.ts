@@ -44,6 +44,7 @@ Travels.init(
     {
         sequelize,
         tableName: 'travels',
+        modelName: 'TravellerTravel',
         timestamps: false,
     }
 );

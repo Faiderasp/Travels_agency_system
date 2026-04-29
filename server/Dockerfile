@@ -14,10 +14,11 @@ COPY middleware ./middleware
 COPY models ./models
 COPY router ./router
 COPY utils ./utils
+COPY docs ./docs
 
 RUN npm run build
 
-EXPOSE 5000
+EXPOSE 3001
 
 # Start the application
 CMD ["npm", "start"]
