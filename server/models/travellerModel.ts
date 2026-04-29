@@ -35,7 +35,7 @@ Traveller.init(
             allowNull: false,
         },
         name: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.STRING(50),
             allowNull: false,
         },
         address: {

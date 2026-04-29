@@ -10,7 +10,7 @@ CREATE TABLE user (
 CREATE TABLE traveller (
     traveller_id INT AUTO_INCREMENT PRIMARY KEY,
     dni VARCHAR(50) NOT NULL UNIQUE,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     address VARCHAR(255),
     phone VARCHAR(50),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -19,11 +19,11 @@ CREATE TABLE traveller (
 CREATE TABLE travel (
     travel_id INT AUTO_INCREMENT PRIMARY KEY,
     travel_code VARCHAR(50) NOT NULL UNIQUE,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(50) NOT NULL,
     seat_quantity INT NOT NULL,
     date DATETIME NOT NULL,
-    origin VARCHAR(100) NOT NULL,
-    destiny VARCHAR(100) NOT NULL,
+    origin VARCHAR(50) NOT NULL,
+    destiny VARCHAR(50) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
