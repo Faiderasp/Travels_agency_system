@@ -9,7 +9,7 @@ import {
     deleteUser,
     updateUser,
 } from '../controller/user.js';
-import { auth } from '../middleware/auth.middleware.js';
+import { auth, checkAdmin } from '../middleware/auth.middleware.js';
 
 const router: Router = Router();
 
@@ -137,7 +137,8 @@ router.get('/', auth, selectUsers);
  *       500:
  *         description: Server error.
  */
-router.post('/create', auth, createUser);
+router.post('/create', auth, checkAdmin, createUser);
+
 
 /**
  * @openapi
@@ -177,7 +178,8 @@ router.post('/create', auth, createUser);
  *       500:
  *         description: Server error.
  */
-router.put('/:id', auth, updateUser);
+router.put('/:id', auth, checkAdmin, updateUser);
+
 
 /**
  * @openapi
@@ -202,6 +204,7 @@ router.put('/:id', auth, updateUser);
  *       500:
  *         description: Server error.
  */
-router.delete('/:id', auth, deleteUser);
+router.delete('/:id', auth, checkAdmin, deleteUser);
+
 
 export default router;

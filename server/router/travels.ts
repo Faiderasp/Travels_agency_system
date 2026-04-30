@@ -4,9 +4,10 @@ import { Router } from 'express';
 import {
     createTravels,
     getTravelRegistrations,
+    getAllRegistrations,
     deleteTravels,
 } from '../controller/travels.js';
-import { auth } from '../middleware/auth.middleware.js';
+import { auth, checkAdminOrUser } from '../middleware/auth.middleware.js';
 
 const router: Router = Router();
 
@@ -44,7 +45,9 @@ const router: Router = Router();
  *       500:
  *         description: Server error.
  */
-router.post('/', auth, createTravels);
+router.post('/', auth, checkAdminOrUser, createTravels);
+router.get('/', auth, getAllRegistrations);
+
 
 /**
  * @openapi
@@ -94,6 +97,7 @@ router.get('/:travel_id', auth, getTravelRegistrations);
  *       500:
  *         description: Server error.
  */
-router.delete('/:id', auth, deleteTravels);
+router.delete('/:id', auth, checkAdminOrUser, deleteTravels);
+
 
 export default router;

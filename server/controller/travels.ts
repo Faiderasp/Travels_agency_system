@@ -96,8 +96,28 @@ export const getTravelRegistrations = async (
         });
     }
 };
+ 
+export const getAllRegistrations = async (
+    req: Request,
+    res: Response
+): Promise<Response> => {
 
-export const deleteTravels = async (
+    try {
+        const registrations = await travelsModel.selectAll();
+        return res.status(200).json({ success: true, data: registrations });
+    } catch (error: any) {
+        return res.status(500).json({
+            success: false,
+            message:
+                error.message ||
+                'An error occurred while fetching all registrations.',
+        });
+    }
+};
+
+
+ export const deleteTravels = async (
+
     req: Request,
     res: Response
 ): Promise<Response> => {

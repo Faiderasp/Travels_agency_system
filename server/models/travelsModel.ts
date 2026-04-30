@@ -73,7 +73,12 @@ export const travelsModel = {
         return await Travels.findOne({ where: { traveller_id, travel_id } });
     },
 
+    selectAll: async (): Promise<Travels[]> => {
+        return await Travels.findAll();
+    },
+
     deleteTravelsById: async (travels_id: number): Promise<void> => {
+
         await Travels.destroy({ where: { travels_id } });
     },
 };

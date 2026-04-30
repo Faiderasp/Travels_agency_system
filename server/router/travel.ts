@@ -9,7 +9,7 @@ import {
     deleteTravel,
     getTravelTravellers,
 } from '../controller/travel.js';
-import { auth } from '../middleware/auth.middleware.js';
+import { auth, checkAdminOrUser } from '../middleware/auth.middleware.js';
 
 const router: Router = Router();
 
@@ -60,7 +60,7 @@ const router: Router = Router();
  *       500:
  *         description: Server error.
  */
-router.post('/', auth, createTravel);
+router.post('/', auth, checkAdminOrUser, createTravel);
 
 /**
  * @openapi
@@ -150,7 +150,7 @@ router.get('/:id', auth, getTravelById);
  *       500:
  *         description: Server error.
  */
-router.put('/:id', auth, updateTravel);
+router.put('/:id', auth, checkAdminOrUser, updateTravel);
 
 /**
  * @openapi
@@ -175,7 +175,8 @@ router.put('/:id', auth, updateTravel);
  *       500:
  *         description: Server error.
  */
-router.delete('/:id', auth, deleteTravel);
+router.delete('/:id', auth, checkAdminOrUser, deleteTravel);
+
 
 /**
  * @openapi

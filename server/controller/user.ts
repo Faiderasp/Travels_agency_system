@@ -25,7 +25,8 @@ export const registerUser = async (
 
         const hashedPassword: string = await bcrypt.hash(password, SALT_ROUNDS);
 
-        await userModel.insertUser(username, hashedPassword, image, role);
+        await userModel.insertUser(username, hashedPassword, role, image);
+
         return res
             .status(201)
             .json({ success: true, message: 'User successfully created.' });
@@ -69,7 +70,9 @@ export const loginUser = async (
                 id: user.user_id,
                 username: user.username,
                 image: user.image,
+                role: user.role,
             },
+
         });
     } catch (error: any) {
         return res.status(500).json({
@@ -117,7 +120,8 @@ export const createUser = async (
 
         const hashedPassword: string = await bcrypt.hash(password, SALT_ROUNDS);
 
-        await userModel.insertUser(username, hashedPassword, image, role);
+        await userModel.insertUser(username, hashedPassword, role, image);
+
         return res
             .status(201)
             .json({ success: true, message: 'User successfully created.' });

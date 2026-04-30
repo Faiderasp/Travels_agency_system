@@ -29,10 +29,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes configuration
-app.use('/api/user/', userRouter);
-app.use('/api/traveller/', travellerRouter);
-app.use('/api/travel/', travelRouter);
-app.use('/api/travels/', travelsRouter);
+app.use('/api/user', userRouter);
+app.use('/api/traveller', travellerRouter);
+app.use('/api/travel', travelRouter);
+app.use('/api/travels', travelsRouter);
+
 
 // Health check
 /**
@@ -59,9 +60,15 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const startApplication = async (): Promise<void> => {
     await dbConnection();
 
-    app.listen(3001, () => {
+    app.listen(3001, '0.0.0.0', () => {
         log(`Travels agency server is running on port ${PORT}...`);
+        log(`Environment: ${process.env.NODE_ENV || 'development'}`);
     });
+
 };
 
-startApplication();
+log('Starting application...');
+startApplication().catch(err => {
+    log(`FATAL ERROR during startup: ${err}`);
+});
+

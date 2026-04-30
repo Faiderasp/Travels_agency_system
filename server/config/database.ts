@@ -4,6 +4,7 @@ import { Sequelize } from 'sequelize';
 import { log, sleep } from '../utils/utils.js';
 
 // Creating the MySQL sequelize object
+log(`DB Config: Host=${process.env.MYSQL_HOST}, Database=${process.env.MYSQL_DATABASE}, User=${process.env.MYSQL_USER}, Port=${process.env.DB_PORT || 3306}`);
 export const sequelize = new Sequelize(
     process.env.MYSQL_DATABASE || '',
     process.env.MYSQL_USER || '',
@@ -15,6 +16,7 @@ export const sequelize = new Sequelize(
         logging: false,
     }
 );
+
 
 // Function to connect to MySQL
 export const dbConnection = async (): Promise<void> => {
