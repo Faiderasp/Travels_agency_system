@@ -84,7 +84,16 @@ The database is automatically initialized using:
 
 This file contains the schema and initial data.
 
-#### 6. Stop the containers
+
+#### 6. Run the Frontend 
+
+```bash
+cd Frontend
+npm install
+npm run dev
+```
+
+#### 7. Stop the containers
 
 ```bash
 docker-compose down

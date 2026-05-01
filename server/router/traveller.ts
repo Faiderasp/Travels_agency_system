@@ -50,6 +50,8 @@ const router: Router = Router();
  *         description: Data missing or DNI already exists.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
@@ -68,6 +70,8 @@ router.post('/', auth, checkAdminOrUser, createTraveller);
  *         description: Travellers successfully fetched.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       500:
  *         description: Server error.
  */
@@ -93,6 +97,8 @@ router.get('/', auth, getTravellers);
  *         description: Traveller successfully fetched.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       404:
  *         description: Traveller not found.
  *       500:
@@ -135,11 +141,12 @@ router.get('/:id', auth, getTravellerById);
  *         description: Traveller updated successfully.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.put('/:id', auth, checkAdminOrUser, updateTraveller);
-
 
 /**
  * @openapi
@@ -161,11 +168,12 @@ router.put('/:id', auth, checkAdminOrUser, updateTraveller);
  *         description: Traveller deleted successfully.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.delete('/:id', auth, checkAdminOrUser, deleteTraveller);
-
 
 /**
  * @openapi
@@ -187,8 +195,8 @@ router.delete('/:id', auth, checkAdminOrUser, deleteTraveller);
  *         description: Travels successfully fetched.
  *       401:
  *         description: Unauthorized.
- *       404:
- *         description: Traveller not found.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       500:
  *         description: Server error.
  */

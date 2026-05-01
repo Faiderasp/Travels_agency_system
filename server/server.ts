@@ -34,7 +34,6 @@ app.use('/api/traveller', travellerRouter);
 app.use('/api/travel', travelRouter);
 app.use('/api/travels', travelsRouter);
 
-
 // Health check
 /**
  * @openapi
@@ -62,13 +61,7 @@ const startApplication = async (): Promise<void> => {
 
     app.listen(3001, '0.0.0.0', () => {
         log(`Travels agency server is running on port ${PORT}...`);
-        log(`Environment: ${process.env.NODE_ENV || 'development'}`);
     });
-
 };
 
-log('Starting application...');
-startApplication().catch(err => {
-    log(`FATAL ERROR during startup: ${err}`);
-});
-
+startApplication();

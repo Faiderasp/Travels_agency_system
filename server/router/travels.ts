@@ -42,12 +42,32 @@ const router: Router = Router();
  *         description: Data missing, traveller already registered, or no seats available.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.post('/', auth, checkAdminOrUser, createTravels);
-router.get('/', auth, getAllRegistrations);
 
+/**
+ * @openapi
+ * /api/travels:
+ *   get:
+ *     summary: Get all registrations.
+ *     tags: [Registrations]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Registrations successfully fetched.
+ *       401:
+ *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
+ *       500:
+ *         description: Server error.
+ */
+router.get('/', auth, getAllRegistrations);
 
 /**
  * @openapi
@@ -69,6 +89,8 @@ router.get('/', auth, getAllRegistrations);
  *         description: Registrations successfully fetched.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       500:
  *         description: Server error.
  */
@@ -94,10 +116,11 @@ router.get('/:travel_id', auth, getTravelRegistrations);
  *         description: Registration successfully deleted.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.delete('/:id', auth, checkAdminOrUser, deleteTravels);
-
 
 export default router;

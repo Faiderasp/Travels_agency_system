@@ -72,7 +72,6 @@ export const loginUser = async (
                 image: user.image,
                 role: user.role,
             },
-
         });
     } catch (error: any) {
         return res.status(500).json({
