@@ -78,7 +78,6 @@ export const travelsModel = {
     },
 
     deleteTravelsById: async (travels_id: number): Promise<void> => {
-
         await Travels.destroy({ where: { travels_id } });
     },
 };

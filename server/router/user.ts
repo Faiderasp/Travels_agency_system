@@ -96,6 +96,8 @@ router.post('/login', loginUser);
  *         description: Users successfully fetched.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       500:
  *         description: Server error.
  */
@@ -134,11 +136,12 @@ router.get('/', auth, selectUsers);
  *         description: Data missing or username already exists.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.post('/create', auth, checkAdmin, createUser);
-
 
 /**
  * @openapi
@@ -175,11 +178,12 @@ router.post('/create', auth, checkAdmin, createUser);
  *         description: User updated successfully.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.put('/:id', auth, checkAdmin, updateUser);
-
 
 /**
  * @openapi
@@ -201,10 +205,11 @@ router.put('/:id', auth, checkAdmin, updateUser);
  *         description: User deleted successfully.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.delete('/:id', auth, checkAdmin, deleteUser);
-
 
 export default router;

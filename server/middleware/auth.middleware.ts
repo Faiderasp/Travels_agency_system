@@ -9,7 +9,7 @@ interface UserPayload {
 }
 
 // Extended request
-export interface AuthenticatedRequest extends Request {
+interface AuthenticatedRequest extends Request {
     user?: UserPayload;
 }
 
@@ -28,7 +28,7 @@ export const auth = (
     try {
         const decoded = jwt.verify(
             token,
-            process.env.JWT_SECRET as string || 'JWTSECRETKEY'
+            (process.env.JWT_SECRET as string) || 'JWTSECRETKEY'
         ) as UserPayload;
         req.user = decoded;
         next();
@@ -48,7 +48,8 @@ export const checkAdmin = (
 
     if (req.user.role !== 'admin') {
         return res.status(403).json({
-            message: 'Access denied. Only administrators can perform this action.',
+            message:
+                'Access denied. Only administrators can perform this action.',
         });
     }
 
@@ -66,10 +67,10 @@ export const checkAdminOrUser = (
 
     if (req.user.role !== 'admin' && req.user.role !== 'user') {
         return res.status(403).json({
-            message: 'Access denied. Only administrators or users can perform this action.',
+            message:
+                'Access denied. Only administrators or users can perform this action.',
         });
     }
 
     next();
 };
-

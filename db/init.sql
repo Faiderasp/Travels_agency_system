@@ -42,10 +42,12 @@ CREATE TABLE travels (
         REFERENCES travel(travel_id)
         ON DELETE CASCADE
         ON UPDATE CASCADE
-);
+)
 
--- Insert administrative user (password: admin)
-INSERT INTO user (username, password, image, role) 
-VALUES ('admin@admin.com', '$2b$10$ro7gSHg/heX0O15f5rFMS.jnDxgU93V/g4pIoayjLciKD3EloXoQG', 'https://www.kindpng.com/picc/m/430-4304008_transparent-mia-png-fondos-de-pantalla-de-mia.png', 'admin');
-
-
+INSERT INTO user (username, password, image, role)
+VALUES (
+        'admin@admin.com',
+        '$2b$10$ro7gSHg/heX0O15f5rFMS.jnDxgU93V/g4pIoayjLciKD3EloXoQG',
+        'https://www.kindpng.com/picc/m/430-4304008_transparent-mia-png-fondos-de-pantalla-de-mia.png',
+        'admin'
+    );

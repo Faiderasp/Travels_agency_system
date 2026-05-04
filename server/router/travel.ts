@@ -57,6 +57,8 @@ const router: Router = Router();
  *         description: Data missing or travel code already exists.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
@@ -75,6 +77,8 @@ router.post('/', auth, checkAdminOrUser, createTravel);
  *         description: Travels successfully fetched.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       500:
  *         description: Server error.
  */
@@ -100,6 +104,8 @@ router.get('/', auth, getTravels);
  *         description: Travel successfully fetched.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       404:
  *         description: Travel not found.
  *       500:
@@ -147,6 +153,8 @@ router.get('/:id', auth, getTravelById);
  *         description: Travel updated successfully.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
@@ -172,11 +180,12 @@ router.put('/:id', auth, checkAdminOrUser, updateTravel);
  *         description: Travel deleted successfully.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token or insufficient permissions.
  *       500:
  *         description: Server error.
  */
 router.delete('/:id', auth, checkAdminOrUser, deleteTravel);
-
 
 /**
  * @openapi
@@ -198,6 +207,8 @@ router.delete('/:id', auth, checkAdminOrUser, deleteTravel);
  *         description: Travellers successfully fetched.
  *       401:
  *         description: Unauthorized.
+ *       403:
+ *         description: Forbidden - Invalid token.
  *       404:
  *         description: Travel not found.
  *       500:

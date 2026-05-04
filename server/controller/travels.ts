@@ -96,12 +96,11 @@ export const getTravelRegistrations = async (
         });
     }
 };
- 
+
 export const getAllRegistrations = async (
     req: Request,
     res: Response
 ): Promise<Response> => {
-
     try {
         const registrations = await travelsModel.selectAll();
         return res.status(200).json({ success: true, data: registrations });
@@ -115,9 +114,7 @@ export const getAllRegistrations = async (
     }
 };
 
-
- export const deleteTravels = async (
-
+export const deleteTravels = async (
     req: Request,
     res: Response
 ): Promise<Response> => {

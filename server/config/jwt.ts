@@ -13,7 +13,6 @@ export function generateToken(user: User): string {
             expiresIn: '8h',
         }
     );
-
 }
 
 // Verifies if the token is valid
