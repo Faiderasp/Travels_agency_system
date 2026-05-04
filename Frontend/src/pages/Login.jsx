@@ -18,8 +18,9 @@ function Login(){
                     localStorage.setItem('user', JSON.stringify({
                         user_id: response.data.id,
                         username: response.data.username,
+                        image: response.data.image || 'perfil.png',
                         name: response.data.username, // Fallback for components using .name
-                        img: response.data.image || 'perfil.png',
+                        img: response.data.image || 'perfil.png', // Fallback for components using .img
                         role: response.data.role // Use the actual role from backend
                     }));
 
@@ -68,9 +69,9 @@ function Login(){
                 <h1 className="text-center text-3xl font-bold text-gray-900">LOGIN</h1>
                 <h2 className="text-center text-md font-semibold text-gray-600 mb-8">Manage your travel information</h2>
                 <div className="mb-14">
-                    <input type="email" className="block bg-white text-black border-b border-gray-400
+                    <input type="text" className="block bg-white text-black border-b border-gray-400
                                             px-8 py-1 mb-3 outline-none focus:border-violet-800 focus:border-b-3 placeholder:text-start" id="email" 
-                    placeholder="Your@email.com" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
+                    placeholder="Input your email or username" value={email} onChange={(e) => {setEmail(e.target.value)}}/>
                     <input type="password" className="block bg-white text-black border-b border-gray-400 
                                             px-8 py-1 focus:border-violet-800 focus:border-b-3 outline-none placeholder:text-start" id="password" 
                     placeholder="Password" value={password} onChange={(e) => {setPassword(e.target.value)}}/>

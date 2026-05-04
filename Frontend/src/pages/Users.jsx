@@ -61,7 +61,7 @@ function Users() {
         }
     };
 
-    const filteredUsers = users.filter(user => 
+    const filteredUsers = users.filter(user =>
         user.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         user.role?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -112,8 +112,7 @@ function Users() {
         try {
             let response;
             if (currentUser) {
-                // If password is empty, don't send it to backend or handle it appropriately
-                if (!formData.password) delete formData.password;
+                console.log(formData);
                 response = await api.updateUser(currentUser.user_id, formData);
             } else {
                 response = await api.createUser(formData);
@@ -122,6 +121,19 @@ function Users() {
             if (response.success) {
                 Swal.fire('Success!', `User ${currentUser ? 'updated' : 'created'} successfully.`, 'success');
                 setIsModalOpen(false);
+                
+                // If updated user is current user, update localStorage and state
+                if (currentUser && currentUser.user_id === userData.user_id) {
+                    const updatedUser = { 
+                        ...userData, 
+                        ...formData,
+                        name: formData.username || userData.name, // Support both fields
+                        img: formData.image || userData.img // Support both fields
+                    };
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                    setUserData(updatedUser);
+                }
+
                 fetchUsers();
             } else {
                 Swal.fire('Error!', response.message || 'Could not save.', 'error');
@@ -163,9 +175,9 @@ function Users() {
                             <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
                                 <i className="fa-solid fa-magnifying-glass"></i>
                             </span>
-                            <input 
-                                type="text" 
-                                placeholder="Search users..." 
+                            <input
+                                type="text"
+                                placeholder="Search users..."
                                 className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-violet-200"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -178,14 +190,15 @@ function Users() {
                             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-600"></div>
                         </div>
                     ) : (
-                        <Table 
-                            headers={headers} 
+                        <Table
+                            headers={headers}
                             data={filteredUsers.map(u => ({
                                 id: u.user_id,
                                 username: u.username,
                                 role: u.role,
+                                image: u.image,
                                 user_id: u.user_id // Keep ID for actions
-                            }))} 
+                            }))}
                             onEdit={isAdmin ? handleEdit : null}
                             onDelete={isAdmin ? handleDelete : null}
                         />

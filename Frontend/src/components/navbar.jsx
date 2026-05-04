@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import UserConfigModal from './UserConfigModal';
+import { api } from '../services/api';
+import Swal from 'sweetalert2';
 
 
 function Navbar({ userData, logout_handler }) {
@@ -7,9 +9,26 @@ function Navbar({ userData, logout_handler }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentUsersData, setCurrentUsersData] = useState(userData);
 
-  const handleSaveConfig = (newData) => {
-    setCurrentUsersData(newData);
-    // Here you would typically call an API to save the data
+  const handleSaveConfig = async (newData) => {
+    try {
+      const response = await api.updateUser(currentUsersData.user_id, newData);
+      if (response.success) {
+        const updatedUser = { 
+          ...currentUsersData, 
+          ...newData,
+          name: newData.username || currentUsersData.name,
+          img: newData.image || currentUsersData.img
+        };
+        setCurrentUsersData(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        Swal.fire('Success', 'Profile updated successfully', 'success');
+      } else {
+        Swal.fire('Error', response.message || 'Could not update profile', 'error');
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      Swal.fire('Error', 'Network error', 'error');
+    }
   };
 
 
@@ -32,13 +51,13 @@ function Navbar({ userData, logout_handler }) {
 
         <div className="flex flex-col items-center justify-center mt-8 md:mt-0">
           <img
-            src={currentUsersData.img}
+            src={currentUsersData.image || currentUsersData.img || 'perfil.png'}
             className="w-20 h-20 md:w-40 md:h-40 bg-black text-white mb-2 rounded-full 
                         object-cover border-3 border-violet-900 select-none pointer-events-none cursor-pointer hover:opacity-90 transition-opacity"
             alt="user photo"
             onClick={() => setIsModalOpen(true)}
           />
-          <h1 className="text-violet-100 font-bold text-2xl font-mono text-center px-2 select-none cursor-pointer" onClick={() => setIsModalOpen(true)}>{currentUsersData.name}</h1>
+          <h1 className="text-violet-100 font-bold text-2xl font-mono text-center px-2 select-none cursor-pointer" onClick={() => setIsModalOpen(true)}>{currentUsersData.username || currentUsersData.name}</h1>
 
         </div>
 

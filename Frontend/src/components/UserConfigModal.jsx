@@ -41,7 +41,7 @@ const UserConfigModal = ({ isOpen, onClose, userData, onSave }) => {
           <div className="flex justify-center -mt-16 mb-4">
             <div className="relative group">
               <img 
-                src={formData.img || 'perfil.png'} 
+                src={formData.image || formData.img || 'perfil.png'} 
                 alt="Profile" 
                 className="h-24 w-24 rounded-full border-4 border-white object-cover shadow-lg bg-gray-200"
               />
@@ -60,8 +60,8 @@ const UserConfigModal = ({ isOpen, onClose, userData, onSave }) => {
                 </span>
                 <input
                   type="text"
-                  name="name"
-                  value={formData.name}
+                  name="username"
+                  value={formData.username || formData.name || ''}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 outline-none transition-all"
                   placeholder="Enter username"
@@ -70,18 +70,18 @@ const UserConfigModal = ({ isOpen, onClose, userData, onSave }) => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Photo URL</label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                  <i className="fa-solid fa-envelope"></i>
+                  <i className="fa-solid fa-link"></i>
                 </span>
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
+                  type="text"
+                  name="image"
+                  value={formData.image || formData.img || ''}
                   onChange={handleChange}
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-200 outline-none transition-all"
-                  placeholder="name@example.com"
+                  placeholder="https://example.com/profile.png"
                 />
               </div>
             </div>
