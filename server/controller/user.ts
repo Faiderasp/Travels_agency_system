@@ -142,9 +142,9 @@ export const updateUser = async (
         const { username, password, image, role } = req.body;
 
         const updateData: any = {};
-        if (username) updateData.username = username;
-        if (image) updateData.image = image;
-        if (role) updateData.role = role;
+        if (username !== undefined) updateData.username = username;
+        if (image !== undefined) updateData.image = image;
+        if (role !== undefined) updateData.role = role;
         if (password) {
             updateData.password = await bcrypt.hash(password, SALT_ROUNDS);
         }
